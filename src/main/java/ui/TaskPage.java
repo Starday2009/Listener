@@ -4,12 +4,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.RemoteDriverManager;
 
-public class TaskPage {
+public class TaskPage extends BasePage{
+    private String pageURL = baseURL + "/browse/%s";
 
-    By createSub = By.xpath(".//*[@id='stqc_show']");
-    By summary = By.xpath(".//*[@id='summary']");
-    By assign = By.xpath(" .//*[@id='assign-to-me-trigger']");
-    By submit = By.xpath(".//*[@id='create-issue-submit']");
+
+    private TaskPage taskPage;
+
+    private By createSub = By.xpath(".//*[@id='stqc_show']");
+    private By summary = By.xpath(".//*[@id='summary']");
+    private By assign = By.xpath(" .//*[@id='assign-to-me-trigger']");
+    private By submit = By.xpath(".//*[@id='create-issue-submit']");
+    private By addComment = By.xpath(".//*[@id='footer-comment-button']/span[2]");
+    private By commentArea = By.id("comment");
+    private By addCommentButton = By.id("issue-comment-add-submit");
 
 
    /* private final WebDriver driver;
@@ -24,20 +31,102 @@ public class TaskPage {
 
     }
 
-    public TaskPage clickAddSub(){
-        driver.findElement(createSub).click();
+    public void openExistingIssue(String issueId){
+
+        String url = String.format(pageURL, issueId);
+        super.openExistingIssue(url);
+    }
+/*
+    public TaskPage openNewSubTask() throws InterruptedException {
+
+        waitToBePresentAndClick();
+//todo need subtask locator
+        return this;
+    }*/
+
+    public TaskPage clickAddSubTask(){
+        waitToBePresentAndClick(createSub);
         return this;
     }
-    public TaskPage typeSummary(String sum){
-        driver.findElement(summary).sendKeys(sum);
+    public TaskPage typeSummaryOfSubTask(){
+        waitToBePresentAndSendKeys(summary, "Oks`s sub task");
         return this;
     }
     public TaskPage clickAssign(){
-        driver.findElement(assign).click();
+        waitToBePresentAndClick(assign);
         return this;
     }
     public TaskPage clickSubmit(){
-        driver.findElement(submit).click();
+        waitToBePresentAndClick(submit);
         return this;
     }
+
+    public TaskPage clickOnCommentButton(){
+        waitToBePresentAndClick(addComment);
+        return this;
+    }
+
+    public TaskPage clickOnAddCommentButton(){
+        waitToBePresentAndClick(addCommentButton);
+        return this;
+    }
+    public TaskPage inputComment(String text){
+        waitToBePresentAndSendKeys(commentArea, "This is Oks comment");
+        return this;
+    }
+
+    //checks
+
+    public boolean isOnThePage(String issueId){
+
+        String url = String.format(pageURL, issueId)
+        return isOnThePage(url);
+    }
+
+    public boolean isSubTaskSummaryPresent(String title) {
+
+        String selector = String.format(title, summary);
+        return  waitToBePresentAndContainsText(By.xpath(selector), title);
+    }
+
+
+    public boolean isSubTaskSummaryMissing(String title) {
+
+        String selector = String.format(title, summary);
+        return waitToBeMissing(By.xpath(selector));
+
+    }
+
+ /*   public boolean isSubTaskNumberPresent(String name) {
+
+        String selector = String.format(subTaskNumber, name);
+        return waitToBePresentAndContainsText(By.xpath(selector), name);
+
+    }
+*/
+    public boolean isSubTaskAssigneePresent(String name) {
+
+        String selector = String.format(name, assign);
+        return waitToBePresentAndContainsText(By.xpath(selector), name);
+
+    }
+
+    public boolean isCommentTextPresent(String text) {
+
+        //TODO NEED COMMENT  TEXT
+
+        String selector = String.format(text, commentArea);
+        return waitToBePresentAndContainsText(By.xpath(selector), text);
+
+    }
+
+    public boolean isCommentTextMissing(String text) {
+
+        //TODO NEED COMMENT  TEXT
+
+        String selector = String.format(text, commentArea);
+        return waitToBeMissing(By.xpath(selector));
+
+    }
+
 }

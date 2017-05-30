@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.RemoteDriverManager;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
+
+    private String pageURL = baseURL + "/login.jsp";
+
     By loginField = By.xpath(".//*[@id='login-form-username']");
     By passwordField = By.xpath(".//*[@id='login-form-password']");
     By loginButton = By.xpath(".//*[@id='login-form-submit']");
@@ -22,26 +25,30 @@ public class LoginPage {
 
     }
 
+    public LoginPage open(){
+        logger.info("OPENING URL: "+ pageURL);
+        driver.get(pageURL);
 
-    public LoginPage typeUsername(String username){
-        driver.findElement(loginField).sendKeys(username);
         return this;
     }
 
-    public LoginPage typePassword(String password){
-        driver.findElement(passwordField).sendKeys(password);
+    public LoginPage typeUsername(){
+        waitToBePresentAndSendKeys(loginField, "oksana.gorbachenko.2009");
+        return this;
+    }
+
+    public LoginPage typePassword(){
+        waitToBePresentAndSendKeys(passwordField, "123456qwerty");
         return this;
     }
 
     public LoginPage clickOnLogin(){
-        driver.findElement(loginButton).click();
-        return this;
-    }
-    public LoginPage open(){
-        driver.get("http://soft.it-hillel.com.ua:8080/login.jsp");
+        waitToBePresentAndSendSubmit(loginButton);
         return this;
     }
 
-
+    public boolean isOnThePage(){
+        return isOnThePage(pageURL);
+    }
 
 }

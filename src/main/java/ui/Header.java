@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import utils.RemoteDriverManager;
 
-public class Header {
+public class Header extends BasePage{
 
     By createButton = By.xpath(".//*[@id='create_link']");
     By dashBoards = By.xpath(".//*[@id='home_link']");
@@ -32,40 +32,40 @@ public class Header {
 
     }
     public Header clickCreate(){
-        driver.findElement(createButton).click();
+        waitToBePresentAndSendSubmit(createButton);
         return this;
     }
 
     public Header clickdashBoards(){
-        driver.findElement(dashBoards).click();
+        waitToBePresentAndSendSubmit(dashBoards);
         return this;
     }
     public Header clickprojects(){
-        driver.findElement(projects).click();
+        waitToBePresentAndSendSubmit(projects);
         return this;
     }
     public Header clickissues(){
-        driver.findElement(issues).click();
+        waitToBePresentAndSendSubmit(issues);
         return this;
     }
     public Header clickboards(){
-        driver.findElement(boards).click();
+        waitToBePresentAndSendSubmit(boards);
         return this;
     }
     public Header clicktestRail(){
-        driver.findElement(testRail).click();
+        waitToBePresentAndSendSubmit(testRail);
         return this;
     }
     public Header clickburgerMenu(){
-        driver.findElement(burgerMenu).click();
+        waitToBePresentAndSendSubmit(burgerMenu);
         return this;
     }
     public Header clickSearch(){
-        driver.findElement(search).click();
+        waitToBePresentAndSendSubmit(search);
         return this;
     }
     public Header clickOnTask(){
-        driver.findElement(task).click();
+        waitToBePresentAndSendSubmit(task);
         return this;
     }
     /*public Header moveIssueToDone() {
@@ -75,11 +75,14 @@ public class Header {
         return  this;
     }*/
 
-    public Header typeFind(String find){
+    public Header typeFind(){
+        waitToBePresentAndSendKeys(search, "QAAUT-308");
+        /*
         WebElement element = driver.findElement(search);
         element.sendKeys(find);
         element.submit();
-      //  driver.findElement(search).sendKeys(find);
+       driver.findElement(search).sendKeys(find);
+       */
         return this;
     }
 
