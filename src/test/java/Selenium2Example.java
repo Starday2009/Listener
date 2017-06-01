@@ -15,19 +15,19 @@ public class Selenium2Example {
             header = new Header();
             taskPage = new TaskPage();
 
+            String issueId = "QAAUT-308";
+
             //login
             loginPage.open();
             assertEquals(loginPage.isOnThePage(), true);
-
             loginPage.typeUsername();
             loginPage.typePassword();
             loginPage.clickOnLogin();
-
             assertEquals(loginPage.isOnThePage(), true);
 
             //search task
             header.clickSearch();
-            header.typeFind();
+            header.typeFind(issueId);
 
             /*add task
             taskPage.clickAddSubTask();
@@ -41,10 +41,8 @@ public class Selenium2Example {
             taskPage.clickOnCommentButton();
             assertEquals(taskPage.isOnThePage(issueId), true);
             taskPage.inputComment("This is my comment");
-            assertEquals(taskPage.isOnThePage);
-            Thread.sleep(8000);
+            assertEquals(taskPage.isOnThePage(issueId), true);
             taskPage.clickOnAddCommentButton();
-            Thread.sleep(8000);
 
             //deleting comment
 

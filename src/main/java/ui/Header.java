@@ -75,8 +75,8 @@ public class Header extends BasePage{
         return  this;
     }*/
 
-    public Header typeFind(){
-        waitToBePresentAndSendKeys(search, "QAAUT-308");
+    public Header typeFind(String issueId){
+        waitToBePresentAndSendKeys(search, issueId);
         /*
         WebElement element = driver.findElement(search);
         element.sendKeys(find);

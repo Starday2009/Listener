@@ -7,7 +7,6 @@ import utils.RemoteDriverManager;
 public class TaskPage extends BasePage{
     private String pageURL = baseURL + "/browse/%s";
 
-
     private TaskPage taskPage;
 
     private By createSub = By.xpath(".//*[@id='stqc_show']");
@@ -18,8 +17,12 @@ public class TaskPage extends BasePage{
     private By commentArea = By.id("comment");
     private By addCommentButton = By.id("issue-comment-add-submit");
 
+    private String subTaskSummary = "//*[@class='stsummary']//*[contains(text(),'%s')]";
+    private String subTaskNumber = "//*[@class='stsequence']//*[contains(text(),'%s')]";
+    private String subTaskAssignee = "//*[@class='assignee']//*[contains(text(),'%s')]";
+    private String commentText = "//*[@id='issue_actions_container']//child::*[contains(text(),'%s')]";
 
-   /* private final WebDriver driver;
+    /* private final WebDriver driver;
 
     public TaskPage(WebDriver driver){
         this.driver = driver;
@@ -28,6 +31,7 @@ public class TaskPage extends BasePage{
 
     public TaskPage() {
         this.driver = RemoteDriverManager.getDriver();
+        taskPage = new TaskPage();
 
     }
 
@@ -79,8 +83,8 @@ public class TaskPage extends BasePage{
 
     public boolean isOnThePage(String issueId){
 
-        String url = String.format(pageURL, issueId)
-        return isOnThePage(url);
+        String url = String.format(pageURL, issueId);
+        return super.isOnThePage(url);
     }
 
     public boolean isSubTaskSummaryPresent(String title) {
@@ -97,13 +101,13 @@ public class TaskPage extends BasePage{
 
     }
 
- /*   public boolean isSubTaskNumberPresent(String name) {
+   public boolean isSubTaskNumberPresent(String name) {
 
         String selector = String.format(subTaskNumber, name);
         return waitToBePresentAndContainsText(By.xpath(selector), name);
 
     }
-*/
+
     public boolean isSubTaskAssigneePresent(String name) {
 
         String selector = String.format(name, assign);
